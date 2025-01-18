@@ -3,7 +3,7 @@ import Card from "./components/Card";
 
 const icons = ["🐶", "🐱", "🐭", "🐰", "🦊", "🐻", "🐼", "🐷"]; // Parovi ikona
 
-// Funkcija za miješanje niza
+//shuffle
 const shuffleArray = (array: any[]) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -21,12 +21,12 @@ function App() {
   const [matchedCards, setMatchedCards] = useState<number[]>([]);
   const [attempts, setAttempts] = useState<number>(0);
 
-  // Izmiješaj kartice jednom prilikom učitavanja stranice
+  // shuffle
   useEffect(() => {
     setShuffledIcons(shuffleArray(icons.concat(icons)));
   }, []);
 
-  // Upravljanje klikovima na kartice
+  // upravljanje
   const handleCardClick = (index: number) => {
     if (flippedCards.length === 2 || flippedCards.includes(index) || matchedCards.includes(index)) {
       return;
@@ -34,7 +34,7 @@ function App() {
     setFlippedCards((prev) => [...prev, index]);
   };
 
-  // Provjera parova kartica
+  // provjera
   useEffect(() => {
     if (flippedCards.length === 2) {
       const [first, second] = flippedCards;
@@ -50,7 +50,7 @@ function App() {
     }
   }, [flippedCards, shuffledIcons]);
 
-  // Završetak igre
+
   useEffect(() => {
     if (matchedCards.length === icons.length * 2) {
       setLeaderboard((prev) => [...prev, { name: playerName, attempts }]);
@@ -67,7 +67,7 @@ function App() {
     setShuffledIcons(shuffleArray(icons.concat(icons)));
   };
 
-  // Početni zaslon (menu)
+  // Main menu
   if (currentScreen === "menu") {
     return (
       <div className="flex flex-col items-center gap-4">
@@ -88,7 +88,7 @@ function App() {
     );
   }
 
-  // Unos imena prije igre
+  // name
   if (currentScreen === "enterName") {
     return (
       <div className="flex flex-col items-center gap-4">
@@ -111,7 +111,7 @@ function App() {
     );
   }
 
-  // Prikaz igre
+  // ingame
   if (currentScreen === "game") {
     return (
       <div className="flex flex-col items-center gap-4">
@@ -132,7 +132,7 @@ function App() {
     );
   }
 
-  // Prikaz leaderboarda
+  // leaderboarda
   if (currentScreen === "leaderboard") {
     return (
       <div className="flex flex-col items-center gap-4">
