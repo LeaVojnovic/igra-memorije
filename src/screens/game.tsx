@@ -22,21 +22,20 @@ const Game = ({ leaderboard, setLeaderboard }: { leaderboard: any[]; setLeaderbo
   const [attempts, setAttempts] = useState<number>(0);
   const [gameCompleted, setGameCompleted] = useState(false); // Flag za praćenje završetka igre
 
-  // Izmiješaj kartice pri pokretanju igre
+  // mjesanje karata
   useEffect(() => {
     startNewGame();
   }, []);
 
-  // Funkcija za pokretanje nove igre
+  // newgame
   const startNewGame = () => {
     setShuffledIcons(shuffleArray(icons.concat(icons)));
     setFlippedCards([]);
     setMatchedCards([]);
     setAttempts(0);
-    setGameCompleted(false); // Resetiraj flag
+    setGameCompleted(false); 
   };
 
-  // Upravljanje klikovima na kartice
   const handleCardClick = (index: number) => {
     if (flippedCards.length === 2 || flippedCards.includes(index) || matchedCards.includes(index)) {
       return;
@@ -44,7 +43,7 @@ const Game = ({ leaderboard, setLeaderboard }: { leaderboard: any[]; setLeaderbo
     setFlippedCards((prev) => [...prev, index]);
   };
 
-  // Provjera jesu li kartice parovi
+  // provjera parova
   useEffect(() => {
     if (flippedCards.length === 2) {
       const [first, second] = flippedCards;
@@ -60,28 +59,27 @@ const Game = ({ leaderboard, setLeaderboard }: { leaderboard: any[]; setLeaderbo
     }
   }, [flippedCards, shuffledIcons]);
 
-  // Provjera završetka igre
   useEffect(() => {
     if (matchedCards.length === icons.length * 2 && !gameCompleted) {
-      // Dodavanje rezultata u leaderboard (ako igra nije već završena)
+
       const updatedLeaderboard = [
         ...leaderboard,
         { name: playerName, attempts },
       ].sort((a, b) => a.attempts - b.attempts);
 
-      setLeaderboard(updatedLeaderboard); // Ažuriraj globalni leaderboard
-      setGameCompleted(true); // Postavi flag da je igra završena
+      setLeaderboard(updatedLeaderboard); 
+      setGameCompleted(true); 
       setTimeout(() => {
-        navigate("/leaderboard"); // Preusmjeri na leaderboard
+        navigate("/leaderboard"); 
       }, 2000);
     }
   }, [matchedCards, leaderboard, navigate, playerName, attempts, setLeaderboard, gameCompleted]);
 
-  // Izračun broja pronađenih parova
+  // pronađeni parovi
   const pairsFound = matchedCards.length / 2;
   const totalPairs = icons.length;
 
-  // Funkcija za povratak na izbornik s potvrdom
+
   const handleReturnToMenu = () => {
     const confirmExit = window.confirm("Jeste li sigurni da želite prekinuti igru i vratiti se na izbornik?");
     if (confirmExit) {
@@ -89,7 +87,7 @@ const Game = ({ leaderboard, setLeaderboard }: { leaderboard: any[]; setLeaderbo
     }
   };
 
-  // Funkcija za restart igre s potvrdom
+
   const handleRestartGame = () => {
     const confirmRestart = window.confirm("Jeste li sigurni da želite restartati igru?");
     if (confirmRestart) {

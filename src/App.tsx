@@ -6,14 +6,14 @@ import Game from "./screens/game";
 import Leaderboard from "./screens/leaderboard";
 
 function App() {
-  // Globalni state za leaderboard
+
   const [leaderboard, setLeaderboard] = useState<{ name: string; attempts: number }[]>([]);
 
   return (
     <Routes>
       <Route path="/" element={<Menu />} />
       <Route path="/newgame" element={<EnterName />} />
-      {/* Prosljeđujemo leaderboard i setLeaderboard kao propove */}
+      {/* leaderboard i setLeaderboard kao propovi */}
       <Route
         path="/game"
         element={<Game leaderboard={leaderboard} setLeaderboard={setLeaderboard} />}
