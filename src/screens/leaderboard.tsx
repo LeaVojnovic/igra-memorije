@@ -6,7 +6,7 @@ const Leaderboard = ({ leaderboard }: any) => {
   return (
     <div className="flex flex-col items-center gap-4">
       <h1 className="text-4xl font-bold">Leaderboard</h1>
-      <ul className="list-none bg-white bg-opacity-80 p-6 rounded-lg shadow-lg">
+      <ul className="list-none bg-white text-black bg-opacity-80 p-6 rounded-lg shadow-lg">
         {leaderboard.map((entry: { name: string; attempts: number }, index: number) => (
           <li key={index} className="text-lg">
             {index + 1}. {entry.name} - {entry.attempts} pokušaja
